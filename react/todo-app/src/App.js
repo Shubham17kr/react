@@ -1,8 +1,9 @@
 import './App.css';
+import Todo from './component/todo.js'
 
 function App() {
   return (
-    <h1>hello skm</h1>
+    <Todo/>
   );
 }
 
