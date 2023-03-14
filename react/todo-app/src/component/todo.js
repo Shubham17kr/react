@@ -3,9 +3,31 @@ import { Component } from "react";
 
 
 class Todo extends Component{
+
+    constructor(){
+
+        super();
+        this.state={
+            task:["how r u","what's up"]
+        }
+    }
     render(){
         return(
-        <div> this is a react component</div>
+        <div> 
+            <input type="text"/>
+            <button>ADD TASK</button>
+
+            <ul>
+                {this.state.task.map((ele)=>
+
+                    <li>
+                        <p>{ele}</p>
+                    </li>
+
+                )}
+            </ul>
+
+        </div>
         )
 }
 }
