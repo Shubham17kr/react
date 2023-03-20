@@ -55,15 +55,15 @@
 
   position: absolute;
   top: 50vh;
-  left:7vw;
-  color: rgb(210, 231, 23);
+  left:5vw;
+  color: rgb(241, 241, 234);
 }
 .banner-text{
 
   position: absolute;
   top: 60vh;
-  left:7vw;
-  color: rgb(79, 224, 12);
+  left:5vw;
+  color: rgb(230, 232, 229);
 }
 
 .movie-list{

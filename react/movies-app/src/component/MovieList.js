@@ -1,40 +1,79 @@
-import { Component } from "react"
-import { movies } from "../movieData"
+import { Component } from "react";
+import { movies } from "../movieData";
 
-
-
-class MovieList extends Component{
-
-    render(){
-        let movieArr=movies.results;
-        return(
-
-            <>
-            <div>
-                <h3 className="text-center"><strong>Trending</strong></h3>
-            </div>
-            <div className="movie-list">
-           {
-            
-            movieArr.map((movieEle)=>(
-            <div className="card movie-card">
-                <img src={`https://image.tmdb.org/t/p/original/${movieEle.backdrop_path}`} className="card-img-top movie-img" alt="..."/>
-                <h5 className="card-title movie-title">{movieEle.original_title}</h5>
-
-                <div style={{display:"flex",justifyContent:"center"}}>
-                   <a href="#" type="button" className="btn btn-primary movie-btn">Add to Favourite</a>
-                </div>
-
-            </div>
-                
-           ))
-           }
-
-            </div>
-           </>
-
-        )
+class MovieList extends Component {
+constructor()
+{
+    super();
+    this.state={
+        hover:""
     }
+}
 
+  render() {
+    let movieArr = movies.results;
+    return (
+      <>
+        <div>
+          <h3 className="text-center">
+            <strong>Trending</strong>
+          </h3>
+        </div>
+        <div className="movie-list">
+          {movieArr.map((movieEle) => (
+            <div className="card movie-card" onMouseEnter={()=>{this.setState({hover:movieEle.id})}} onMouseLeave={()=>{this.setState({hover:""})}}>
+              <img
+                src={`https://image.tmdb.org/t/p/original/${movieEle.backdrop_path}`}
+                className="card-img-top movie-img"
+                alt="..."
+              />
+              <h5 className="card-title movie-title">
+                {movieEle.original_title}
+              </h5>
+
+              <div style={{ display: "flex", justifyContent: "center" }}>
+
+                {this.state.hover == movieEle.id && (
+                <a href="#" type="button" className="btn btn-primary movie-btn">Add to Favourite</a>)}
+
+              </div>
+            </div>
+          ))}
+        </div>
+         
+         <div style={{display:"flex",justifyContent:"center"}}>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" href="#">
+                Previous
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">
+                1
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">
+                2
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">
+                3
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">
+                Next
+              </a>
+            </li>
+          </ul>
+        </nav>
+        </div>
+      </>
+    );
+  }
 }
 export default MovieList;
