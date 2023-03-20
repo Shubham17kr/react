@@ -13,16 +13,19 @@ class MovieList extends Component{
             <div>
                 <h3 className="text-center"><strong>Trending</strong></h3>
             </div>
-            <div className="movie-card">
-           { movieArr.map((movieEle)=>(
-            <div className="card">
-            <img src="https://free4kwallpapers.com/uploads/originals/2021/12/24/spiderman-miles-morales-wallpaper.jpg" className="card-img-top movie-img" alt="..."/>
-            <div className="card-body">
-              <h5 className="card-title">{movieEle.original_title}</h5>
-              
-             
+            <div className="movie-list">
+           {
+            
+            movieArr.map((movieEle)=>(
+            <div className="card movie-card">
+                <img src={`https://image.tmdb.org/t/p/original/${movieEle.backdrop_path}`} className="card-img-top movie-img" alt="..."/>
+                <h5 className="card-title movie-title">{movieEle.original_title}</h5>
+
+                <div style={{display:"flex",justifyContent:"center"}}>
+                   <a href="#" type="button" className="btn btn-primary movie-btn">Add to Favourite</a>
+                </div>
+
             </div>
-          </div>
                 
            ))
            }

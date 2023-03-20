@@ -54,19 +54,19 @@
 .banner-title{
 
   position: absolute;
-  top: 55vh;
+  top: 50vh;
   left:7vw;
-  color: white;
+  color: rgb(210, 231, 23);
 }
 .banner-text{
 
   position: absolute;
-  top: 65vh;
+  top: 60vh;
   left:7vw;
-  color: white;
+  color: rgb(79, 224, 12);
 }
 
-.movie-card{
+.movie-list{
 
   display: flex;
   flex-wrap: wrap;
@@ -78,3 +78,22 @@
   width: 20vw;
   height: 40vh;
 }
+.movie-card{
+  position: relative;
+  width: 20vw;
+  margin: 1rem;
+
+}
+
+.movie-title{
+  position: absolute;
+  top: 0px;
+  color: white;
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+.movie-btn{
+  position: absolute;
+  top: 14rem;
+}
+
