@@ -1,17 +1,79 @@
 import { Component } from "react";
-import { movies } from "../movieData";
+// import { movies } from "../movieData";
+
+import axios from 'axios'
 
 class MovieList extends Component {
 constructor()
 {
     super();
     this.state={
-        hover:""
+        hover:"",
+        pArr:[1],
+        movies:[],
+        currPage:1
+
     }
 }
 
+async componentDidMount()
+{
+  console.log("component did mount")
+  const res = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=81242a2aa2066e052c78ec9ac1700c59&language=en-US&page=${this.state.currPage}`)
+  this.setState({
+              
+    movies:[...res.data.results]
+
+  })
+
+}
+
+handleNext=()=>{
+
+  if(this.state.pArr.length == this.state.currPage)
+  {
+    this.setState({
+      pArr:[...this.state.pArr,this.state.pArr.length+1]
+    })
+  }
+  this.setState({
+  currPage:this.state.currPage+1
+  },this.changeMovie)
+
+}
+
+changeMovie=async ()=>{
+
+  const res= await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=81242a2aa2066e052c78ec9ac1700c59&language=en-US&page=${this.state.currPage}`)
+
+   this.setState({
+    movies:[...res.data.results]
+   })
+}
+
+handlePrevious=()=>{
+
+  if(this.state.currPage!=1){
+  this.setState({
+
+    currPage:this.state.currPage-1
+  },this.changeMovie)
+}
+}
+
+handlePageClick=(ele)=>{
+
+  if(ele != this.state.currPage)
+  {
+    this.setState({
+      currPage:ele
+    },this.changeMovie)
+  }
+
+}
+
   render() {
-    let movieArr = movies.results;
+    // let movieArr = movies.results;
     return (
       <>
         <div>
@@ -20,7 +82,7 @@ constructor()
           </h3>
         </div>
         <div className="movie-list">
-          {movieArr.map((movieEle) => (
+          {this.state.movies.map((movieEle) => (
             <div className="card movie-card" onMouseEnter={()=>{this.setState({hover:movieEle.id})}} onMouseLeave={()=>{this.setState({hover:""})}}>
               <img
                 src={`https://image.tmdb.org/t/p/original/${movieEle.backdrop_path}`}
@@ -43,32 +105,17 @@ constructor()
          
          <div style={{display:"flex",justifyContent:"center"}}>
         <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#">
-                Previous
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                1
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                2
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                3
-              </a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">
-                Next
-              </a>
-            </li>
+          <ul className="pagination">
+            <li className="page-item"><a className="page-link" href="#" onClick={(this.handlePrevious)}>Previous</a></li>
+
+            {this.state.pArr.map((ele)=>(
+
+                <li className="page-item"><a className="page-link" href="#" onClick={()=>{this.handlePageClick(ele)}}>{ele}</a> </li>
+
+            ))}
+            
+            
+            <li className="page-item"><a className="page-link" href="#" onClick={(this.handleNext)}>Next </a></li>
           </ul>
         </nav>
         </div>
