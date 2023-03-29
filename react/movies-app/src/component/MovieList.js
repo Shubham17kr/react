@@ -12,7 +12,7 @@ constructor()
         pArr:[1],
         movies:[],
         currPage:1,
-        favourite:[]
+        favourites:[]
 
     }
 }
@@ -77,7 +77,7 @@ handleFavourites=(movieObj)=>{
 
   let oldData=JSON.parse(localStorage.getItem('movies-app') || '[]')
 
-   if(this.state.favourite.includes(movieObj.id))
+   if(this.state.favourites.includes(movieObj.id))
    {
     oldData=oldData.filter((movie)=>movie.id!=movieObj.id)
    }else{
@@ -89,11 +89,11 @@ handleFavourites=(movieObj)=>{
 }
 
 handleFavouriteState=()=>{
-  let oldData=JSON.parse(localStorage.getItem("movies-app"))
+  let oldData=JSON.parse(localStorage.getItem("movies-app") || '[]')
   let temp=oldData.map((movie)=>movie.id)
 
   this.setState({
-    favourite:[...temp]
+    favourites:[...temp]
   })
 }
 
@@ -121,8 +121,8 @@ handleFavouriteState=()=>{
               <div style={{ display: "flex", justifyContent: "center" }}>
 
                 {this.state.hover == movieEle.id && (
-                <a href="#" type="button" className="btn btn-primary movie-btn" onClick={()=>{this.handleFavourites(movieEle)}}>
-                          {this.state.favourite.includes(movieEle.id)?"Remove from favourite":"Add to favourite"}
+                <a  type="button" className="btn btn-primary movie-btn" onClick={()=>{this.handleFavourites(movieEle)}}>
+                          {this.state.favourites.includes(movieEle.id)?"Remove from favourite":"Add to favourite"}
                 </a>)}
 
               </div>
