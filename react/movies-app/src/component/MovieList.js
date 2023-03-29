@@ -11,7 +11,8 @@ constructor()
         hover:"",
         pArr:[1],
         movies:[],
-        currPage:1
+        currPage:1,
+        favourite:[]
 
     }
 }
@@ -72,6 +73,30 @@ handlePageClick=(ele)=>{
 
 }
 
+handleFavourites=(movieObj)=>{
+
+  let oldData=JSON.parse(localStorage.getItem('movies-app') || '[]')
+
+   if(this.state.favourite.includes(movieObj.id))
+   {
+    oldData=oldData.filter((movie)=>movie.id!=movieObj.id)
+   }else{
+    oldData.push(movieObj)
+   }
+
+   localStorage.setItem("movies-app",JSON.stringify(oldData))
+   this.handleFavouriteState();
+}
+
+handleFavouriteState=()=>{
+  let oldData=JSON.parse(localStorage.getItem("movies-app"))
+  let temp=oldData.map((movie)=>movie.id)
+
+  this.setState({
+    favourite:[...temp]
+  })
+}
+
   render() {
     // let movieArr = movies.results;
     return (
@@ -96,7 +121,9 @@ handlePageClick=(ele)=>{
               <div style={{ display: "flex", justifyContent: "center" }}>
 
                 {this.state.hover == movieEle.id && (
-                <a href="#" type="button" className="btn btn-primary movie-btn">Add to Favourite</a>)}
+                <a href="#" type="button" className="btn btn-primary movie-btn" onClick={()=>{this.handleFavourites(movieEle)}}>
+                          {this.state.favourite.includes(movieEle.id)?"Remove from favourite":"Add to favourite"}
+                </a>)}
 
               </div>
             </div>
