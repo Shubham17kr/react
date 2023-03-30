@@ -98,6 +98,50 @@ class Fav extends Component {
     }
   }
 
+  sortPopularityDesc=()=>{
+    let temp=this.state.movie.map((movieObj)=>movieObj)
+    temp.sort(function(objA,objB){
+      return objB.popularity - objA.popularity
+    })
+    
+    this.setState({
+      movie:[...temp],
+      movie2:[...temp]
+    })
+  }
+  sortPopularityAssc=()=>{
+    let temp=this.state.movie.map((movieObj)=>movieObj)
+    temp.sort(function(objA,objB){
+      return objA.popularity - objB.popularity
+    })
+    
+    this.setState({
+      movie:[...temp],
+      movie2:[...temp]
+    })
+  }
+  sortRatingAssc=()=>{
+    let temp=this.state.movie.map((movieObj)=>movieObj)
+    temp.sort(function(objA,objB){
+      return objA.vote_average- objB.vote_average
+    })
+    
+    this.setState({
+      movie:[...temp],
+      movie2:[...temp]
+    })
+  }
+  sortRatingDesc=()=>{
+    let temp=this.state.movie.map((movieObj)=>movieObj)
+    temp.sort(function(objA,objB){
+      return objB.vote_average - objA.vote_average
+    })
+    
+    this.setState({
+      movie:[...temp],
+      movie2:[...temp]
+    })
+  }
 
   render() {
     // let movieArr = movies.results;
@@ -128,8 +172,8 @@ class Fav extends Component {
 
           <div className="col-9 fav-table">
             <div className="row">
-              <input type="text" class="form-control col" placeholder="Search" value={this.state.currText} onChange={(e)=>{this.handleCurrText(e.target.value)}}/>
-              <input type="text" class="form-control col" />
+              <input type="text" class="form-control col text-center" placeholder="Search" value={this.state.currText} onChange={(e)=>{this.handleCurrText(e.target.value)}}/>
+              <input type="number" class="form-control col " />
             </div>
 
             <table className="table">
@@ -137,8 +181,16 @@ class Fav extends Component {
                 <tr>
                   <th scope="col">Title</th>
                   <th scope="col">Genre</th>
-                  <th scope="col">popularity</th>
-                  <th scope="col">Rating</th>
+                  <th scope="col">
+                    <i class="fa fa-sort-up" style={{margin:"0.2rem"}} onClick={this.sortPopularityDesc}></i>
+                    popularity
+                    <i class="fa fa-sort-down" style={{margin:"0.2rem"}} onClick={this.sortPopularityAssc}></i>
+                  </th>
+                  <th scope="col">
+                        <i class="fa fa-sort-up" style={{margin:"0.2rem"}} onClick={this.sortRatingDesc}></i>
+                        Rating
+                        <i class="fa fa-sort-down" style={{margin:"0.2rem"}} onClick={this.sortRatingAssc}></i>
+                  </th>
                   <th scope="col">Delete</th>
                 </tr>
               </thead>
@@ -148,10 +200,10 @@ class Fav extends Component {
                     this.state.movie.map((movieEle)=>(
                         <tr>
                         <th scope="row"><img style={{width:"8rem",padding:"1rem"}} src={`https://image.tmdb.org/t/p/original/${movieEle.backdrop_path}`}/>{movieEle.title}</th>
-                        <td>{genreId[movieEle.genre_ids[0]]}</td>
-                        <td>{movieEle.popularity}</td>
-                        <td>{movieEle.vote_average}</td>
-                        <td><button type="button" class="btn btn-danger">Delete</button></td>
+                        <td >{genreId[movieEle.genre_ids[0]]}</td>
+                        <td className="text-center">{movieEle.popularity}</td>
+                        <td className="text-center">{movieEle.vote_average}</td>
+                        <td className="text-center"><button type="button" class="btn btn-danger">Delete</button></td>
                         </tr>
                     ))
                  } 
