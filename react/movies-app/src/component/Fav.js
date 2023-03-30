@@ -10,6 +10,7 @@ class Fav extends Component {
       genres:[],
       currGenre:"all genres",
       movie:[],
+      movie2:[],
       currText:""
     }
   }
@@ -30,7 +31,8 @@ class Fav extends Component {
 
   this.setState({
     genres:[...tempArr],
-    movie:[...data]
+    movie:[...data],
+    movie2:[...data]
   })
 
   }
@@ -50,7 +52,8 @@ class Fav extends Component {
   if(this.state.currGenre=="all genres")
   {
     this.setState({
-      movie:[...data]
+      movie:[...data],
+      movie2:[...data]
     })
   }else{
 
@@ -58,7 +61,8 @@ class Fav extends Component {
    
      this.setState({
 
-      movie:[...temp]
+      movie:[...temp],
+      movie2:[...temp],
 
      })
   }
@@ -76,7 +80,7 @@ class Fav extends Component {
 
     if(this.state.currText != "")
     {
-      let filteredArr= this.state.movie.filter((movieObj)=>{
+      let filteredArr= this.state.movie2.filter((movieObj)=>{
 
         let title=movieObj.original_title.toLowerCase();
         return title.includes(this.state.currText.toLowerCase())
@@ -89,7 +93,7 @@ class Fav extends Component {
     else{
       let data=JSON.parse(localStorage.getItem('movies-app') || '[]')
       this.setState({
-        movie:[...data]
+        movie:[...this.state.movie2]
       })
     }
   }
