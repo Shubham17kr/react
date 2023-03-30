@@ -143,6 +143,30 @@ class Fav extends Component {
     })
   }
 
+  handleDelete=(movieObj)=>{
+    // console.log(movieObj);
+    let genreId={28:"Action",12:"Adventure",16:"Animation",35:"Comedy",80:"Crime",99:"Documentary",18:"Drama",10751:"Family",14:"Fantasy",36:"History",27:"Horror",10402:"Music",9648:"Mystery",10749:"Romance",878:"Science Fiction",10770:"TV Movie",53:"Thriller",10752:"War",37:"Western"}
+    let temp=JSON.parse(localStorage.getItem('movies-app') || '[]')
+    temp=temp.filter((movieElement)=>movieElement.id !=movieObj.id)
+    let tempArr=[]
+    tempArr.push("all genres")
+    temp.map((movieObj2)=>{
+
+      if(!tempArr.includes(genreId[movieObj2.genre_ids[0]]))
+      {
+          tempArr.push(genreId[movieObj2.genre_ids[0]])
+      }
+
+    })
+
+    this.setState({
+      genres:[...tempArr],
+      movie:[...temp],
+      movie2:[...temp]
+    })
+    localStorage.setItem("movies-app",JSON.stringify(temp))
+  }
+
   render() {
     // let movieArr = movies.results;
     let genreId={28:"Action",12:"Adventure",16:"Animation",35:"Comedy",80:"Crime",99:"Documentary",18:"Drama",10751:"Family",14:"Fantasy",36:"History",27:"Horror",10402:"Music",9648:"Mystery",10749:"Romance",878:"Science Fiction",10770:"TV Movie",53:"Thriller",10752:"War",37:"Western"}
@@ -203,7 +227,7 @@ class Fav extends Component {
                         <td >{genreId[movieEle.genre_ids[0]]}</td>
                         <td className="text-center">{movieEle.popularity}</td>
                         <td className="text-center">{movieEle.vote_average}</td>
-                        <td className="text-center"><button type="button" class="btn btn-danger">Delete</button></td>
+                        <td className="text-center"><button type="button" class="btn btn-danger" onClick={()=>{this.handleDelete(movieEle)}}>Delete</button></td>
                         </tr>
                     ))
                  } 
